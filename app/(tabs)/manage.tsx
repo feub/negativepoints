@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   Switch,
 } from 'react-native';
+import Constants from 'expo-constants';
 import { useAuth } from '../../contexts/AuthContext';
 import { useGroup } from '../../contexts/GroupContext';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -253,6 +254,8 @@ export default function ManageScreen() {
         <Text style={styles.logoutText}>Log Out</Text>
       </TouchableOpacity>
 
+      <Text style={styles.version}>v{Constants.expoConfig?.version}</Text>
+
       <View style={styles.spacer} />
     </ScrollView>
   );
@@ -382,5 +385,11 @@ const createStyles = (theme: Theme) => StyleSheet.create({
   },
   spacer: {
     height: 20,
+  },
+  version: {
+    textAlign: 'center',
+    fontSize: 12,
+    color: theme.colors.textTertiary,
+    marginBottom: 8,
   },
 });
