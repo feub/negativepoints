@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { PointEvent, User, VALIDATION, CreatePointEventInput } from '../lib/types';
 
@@ -36,7 +36,7 @@ export function usePointHistory(groupId: string | null) {
     }
   }, [groupId]);
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     if (!groupId) {
       setHistory([]);
       setLoading(false);
@@ -64,7 +64,7 @@ export function usePointHistory(groupId: string | null) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [groupId]);
 
   const createPointEvent = async (input: CreatePointEventInput): Promise<{ success: boolean; error?: string }> => {
     // Validate input
@@ -82,10 +82,6 @@ export function usePointHistory(groupId: string | null) {
 
     if (typeof input.points !== 'number') {
       return { success: false, error: 'Points must be a number' };
-    }
-
-    if (input.points > 0) {
-      return { success: false, error: 'Points must be negative or zero' };
     }
 
     if (!input.created_by) {

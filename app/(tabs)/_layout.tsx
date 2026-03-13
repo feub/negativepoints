@@ -1,19 +1,22 @@
 import { Tabs } from 'expo-router';
+import { useMemo } from 'react';
 import { Text } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
 
 export default function TabLayout() {
   const { theme } = useTheme();
 
+  const screenOptions = useMemo(() => ({
+    headerShown: true,
+    headerStyle: { backgroundColor: theme.colors.card },
+    headerTintColor: theme.colors.text,
+    tabBarStyle: { backgroundColor: theme.colors.card },
+    tabBarActiveTintColor: theme.colors.primary,
+    tabBarInactiveTintColor: theme.colors.textSecondary,
+  }), [theme]);
+
   return (
-    <Tabs screenOptions={{
-      headerShown: true,
-      headerStyle: { backgroundColor: theme.colors.card },
-      headerTintColor: theme.colors.text,
-      tabBarStyle: { backgroundColor: theme.colors.card },
-      tabBarActiveTintColor: theme.colors.primary,
-      tabBarInactiveTintColor: theme.colors.textSecondary,
-    }}>
+    <Tabs screenOptions={screenOptions}>
       <Tabs.Screen
         name="give-points"
         options={{

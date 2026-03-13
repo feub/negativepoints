@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { ScoreboardEntry } from '../lib/types';
 
@@ -39,7 +39,7 @@ export function useScoreboard(groupId: string | null) {
     }
   }, [groupId]);
 
-  const fetchScoreboard = async () => {
+  const fetchScoreboard = useCallback(async () => {
     if (!groupId) {
       setScoreboard([]);
       setLoading(false);
@@ -70,7 +70,7 @@ export function useScoreboard(groupId: string | null) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [groupId]);
 
   return {
     scoreboard,
