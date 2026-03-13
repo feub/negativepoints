@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { User, CreateUserInput, VALIDATION } from '../lib/types';
 
@@ -32,7 +32,7 @@ export function useUsers(groupId: string | null) {
     }
   }, [groupId]);
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     if (!groupId) {
       setUsers([]);
       setLoading(false);
@@ -56,7 +56,7 @@ export function useUsers(groupId: string | null) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [groupId]);
 
   const createUser = async (input: CreateUserInput): Promise<{ success: boolean; error?: string }> => {
     // Validate input

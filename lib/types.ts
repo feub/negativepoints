@@ -65,3 +65,27 @@ export const VALIDATION = {
   MIN_REASON_LENGTH: 1,
   PRESET_POINTS: [-5, -10, -30, -50] as const,
 } as const;
+
+export type ButtonCategory = 'bonus' | 'body' | 'other' | 'crazy';
+
+export interface PresetButton {
+  label: string;
+  points: number;
+  category: ButtonCategory;
+}
+
+export const PRESET_BUTTONS: PresetButton[] = [
+  { label: '+5', points: 5, category: 'bonus' },
+  { label: 'Body -10', points: -10, category: 'body' },
+  { label: 'Body -30', points: -30, category: 'body' },
+  { label: 'Other -5', points: -5, category: 'other' },
+  { label: 'Other -20', points: -20, category: 'other' },
+  { label: '-50', points: -50, category: 'crazy' },
+];
+
+export const BUTTON_CATEGORY_COLORS: Record<ButtonCategory, string> = {
+  bonus: '#27AE60',
+  body: '#E67E22',
+  other: '#8E44AD',
+  crazy: '#C0392B',
+};
