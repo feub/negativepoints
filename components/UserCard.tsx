@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { User, VALIDATION } from '../lib/types';
+import { User, PRESET_BUTTONS, BUTTON_CATEGORY_COLORS } from '../lib/types';
 import PointButton from './PointButton';
 import { useTheme } from '../contexts/ThemeContext';
 import { Theme } from '../constants/themes';
@@ -20,10 +20,12 @@ export default function UserCard({ user, onGivePoints }: UserCardProps) {
         <Text style={styles.total}>{user.total_points} pts</Text>
       </View>
       <View style={styles.buttons}>
-        {VALIDATION.PRESET_POINTS.map((points) => (
+        {PRESET_BUTTONS.map((btn) => (
           <PointButton
-            key={points}
-            points={points}
+            key={btn.label}
+            points={btn.points}
+            label={btn.label}
+            backgroundColor={BUTTON_CATEGORY_COLORS[btn.category]}
             onPress={(p) => onGivePoints(user.id, p)}
           />
         ))}
